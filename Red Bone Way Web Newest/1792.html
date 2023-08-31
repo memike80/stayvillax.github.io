@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        /* Top div on main page */
+        .top-div {
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 18px;
+            font-weight: 300;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        /* Logo on the top left of the main page */
+        .Logo {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-decoration: none;
+            color: black;
+            font-family: 'Papyrus', Times, serif;
+        }
+        .Logo:hover {
+            color: #ef6c00;
+        }
+        /* Top div links */
+        .links {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            gap: 20px;
+        }
+        .link {
+            text-decoration: none;
+            color: black;
+            position: relative;
+        }
+        .link::before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ef6c00;
+            transition: width 0.3s;
+            transform-origin: left;
+        }
+        .link:hover::before {
+            width: 100%;
+        }
+
+        /* Add this to your existing CSS */
+        .properties-link {
+            position: relative; /* Required for absolute positioning */
+            display: inline-block; /* Expand horizontally based on content */
+            cursor: pointer;
+        }
+        .link.thingsToDo-link {
+            position: relative; /* Required for absolute positioning */
+            display: inline-block; /* Expand horizontally based on content */
+            cursor: pointer; /* Add this line */
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%; /* Match the width of the .properties-link */
+            background-color: white;
+            border: 1px solid #ddd;
+            display: none;
+            font-size: 15px;
+            z-index: 1000; /* Ensure it's above the content */
+        }
+
+        .link:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #ef6c00;
+            color: white;
+        }
+
+
+        /* Book button */
+        .book-now {
+            color: #dcb080;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 2px solid #dcb080;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /*Content divs on main page*/
+        /*-------------------------------------------------------*/
+        .c1792-div1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Change to flex-start to keep detail at the bottom */
+            overflow: hidden;
+            position: relative;
+            height: 100%; /* Ensure the div takes full height */
+        }
+
+        .c1792-div1-container {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90%; /* Set the height to 90% for the images */
+            position: relative;
+        }
+
+        .c1792-div1-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-grow: 1; /* Allow the rows to grow to take available space */
+        }
+
+        .c1792-div1-img {
+            flex: 1;
+            max-width: calc(33.33% - 10px);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .c1792-div1-img:last-child {
+            margin-right: 0;
+        }
+
+        .c1792-div1-img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .c1792-div1-detail {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+            color: rgb(135, 135, 135);
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .button {
+            height: 25px;
+            width: 80px;
+            background-color: #dcb080;
+            border: 2px solid #dcb080;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #ef6c00;
+        }
+
+
+        /*-------------------------------------------------------*/
+        .c1792-div2 {
+            height: calc(7 * 60px);
+            display: flex;
+            flex-direction: column; /* Change to a column layout */
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            overflow: hidden;
+            position: relative;
+        }
+        .c1792-div2-container {
+            width: 100%;
+            height: 100%;
+            display: flex; /* Use Flexbox */
+            flex-direction: column; /* Display children as columns */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+        .c1792-div2-content {
+            width: 60%;
+            height: 60%; /* Adjust the height as needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto; /* Center horizontally */
+            text-align: center; /* Center text horizontally */
+            padding: 20px; /* Add padding for spacing */
+            font-size: 18px;
+            color: rgb(135, 135, 135);
+            font-family: 'Andalé Mono', sans-serif;
+            line-height: 1.5;
+        }
+
+
+
+        
+
+
+        /*-------------------------------------------------------*/
+        .c1792-div3 {
+            height: calc(10 * 60px);
+            display: flex;
+            flex-direction: column; /* Change to a column layout */
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            overflow: hidden;
+            position: relative;
+        }
+        .c1792-div3-container {
+            width: 60%;
+            height: 100%;
+            display: flex; /* Use Flexbox */
+            flex-direction: column; /* Display children as columns */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+        .c1792-div3-container h2 {
+            font-size: 40px;
+            color: rgb(8, 140, 177);
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .c1792-div3-container li {
+            font-size: 18px;
+            text-align: center;
+            color: rgb(135, 135, 135); 
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .c1792-div3-container p {
+            font-size: 18px;
+            text-align: center;
+            color: rgb(135, 135, 135); 
+            font-family: 'Times New Roman', sans-serif;
+        }
+
+
+        /* Contact div on the main page */
+        .seventh-div {
+            height: calc(5 * 60px);
+            background-color: rgb(0, 0, 0);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+            position: relative;
+        }
+        .seventh-child-div {
+            width: 40%;
+            height: 80%;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .seventh-contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+            padding: 20px; 
+            background-color: rgb(0, 0, 0);
+        }
+
+        .seventh-child-header {
+            font-size: 24px;
+            color: white;
+            margin: 0;
+        }
+
+        .contact-paragraph {
+            font-size: 18px;
+            color: white;
+            text-align: left;
+            margin: 10px 0 0; /* Adjust margin for spacing */
+        }
+        .phone-icon-container {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
+        .phone-icon {
+            height: 0.8em; /* Set the desired height for the icon */
+            width: auto;
+            vertical-align: middle;
+        }
+        .email-icon-container {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .email-icon {
+            height: 0.8em;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .seventh-child-div2 { /* Copyright content */
+            background-color: rgb(0, 0, 0); 
+            color: white; 
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!--Top div-->
+    <div class="top-div"> 
+        <a class="Logo" href="index.html">
+            RED BONE CABINS
+        </a>
+        <div class="links">
+            <a class="link" href="index.html">HOME</a>
+            <div class="link properties-link">
+                <span class="link-text">PROPERTIES</span>
+                <div class="dropdown-menu">
+                    <a href="overview.html">OVERVIEW</a>
+                    <a href="1792.html">1792</a>
+                    <a href="1785.html">1785</a>
+                    <a href="1044.html">1044</a>
+                </div>
+            </div>
+            <div class="link thingsToDo-link">
+                <span class="link-text">THING TO DO</span>
+                <div class="dropdown-menu">
+                    <a href="things to do.html">ACTIVITIES</a>
+                    <!--<a href="nearbyRes.html">FOOD</a>-->
+                </div>
+            </div>
+            <a class="link" href="about us.html">ABOUT US</a>
+            <span class="book-now" onclick="openPopup()">BOOK NOW</span>
+        </div>
+    </div>
+    <div class="c1792-div1">
+        <div class="c1792-div1-container">
+            <div class="c1792-div1-row">
+                <div class="c1792-div1-img">
+                    <img class="img1" src="1792_img/1792-1.jpg" alt="Image 1">
+                </div>
+                <div class="c1792-div1-img">
+                    <img class="img2" src="1792_img/1792-2.jpg" alt="Image 2">
+                </div>
+                <div class="c1792-div1-img">
+                    <img class="img3" src="1792_img/1792-3.jpg" alt="Image 3">
+                </div>
+            </div>
+            <div class="c1792-div1-row">
+                <div class="c1792-div1-img">
+                    <img class="img4" src="1792_img/1792-4.jpg" alt="Image 4">
+                </div>
+                <div class="c1792-div1-img">
+                    <img class="img5" src="1792_img/1792-5.jpg" alt="Image 5">
+                </div>
+                <div class="c1792-div1-img">
+                    <img class="img6" src="1792_img/1792-6.jpg" alt="Image 6">
+                </div>
+            </div>
+            <div class="c1792-div1-detail">
+                <div class="detail-column"> 
+                    2 BEDROOMS  |  4 BEDS  |  2 BATH  |  SLEEP 3-6 GUESTS
+                </div>
+                <div class="detail-column">
+                    <div class="detailB">
+                        <button class="button" onclick="open_Airbnb1792()">AIRBNB</button>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="c1792-div2">
+        <div class="c1792-div2-container">
+            <div class="c1792-div2-divider">
+               
+            </div>
+            <div class="c1792-div2-content">
+                <p>Discover the charm of our 1792 cabin nestled within the breathtaking Smoky Mountains, just minutes away from the vibrant town of Pigeon Forge. With two spacious bedrooms, four comfortable beds, and two pristine bathrooms, our cabin offers the perfect retreat for groups of 3-6 guests. Surrounded by the stunning beauty of the Smokies, you can wake up to the serene sounds of nature and savor your morning coffee on the private porch.</p>
+                <p>But that's not all! Our cabin isn't just a place to relax; it's a gateway to adventure in the heart of the Smoky Mountains. Explore the nearby hiking trails, take a refreshing dip in the crystal-clear creek, or simply unwind by the cozy fireplace in the evenings. For history enthusiasts, our cabin's rustic charm and meticulously preserved 18th-century details will transport you back in time. Come and experience the magic of Red Bone Cabins' 1792 retreat in the magnificent Smoky Mountains near Pigeon Forge, and create memories that will last a lifetime.</p>
+            </div>
+            <div class="c1792-div2-divider">
+               
+            </div>
+        </div>
+    </div>
+    <div class="c1792-div3">
+        <div class="c1792-div3-container">
+            <!-- First Header -->
+            <h2 style="text-align: center;">INTERNET</h2>
+        
+            <!-- First Bullet Points List -->
+            <ul">
+                <li style="text-align: left;">New T-Mobile internet with up to XX MBS download speeds, you will be able to access emails, surf the web, Zoom call, with light streaming capabilities.</li>
+                <li style="text-align: left;">We are located in the mountains this not the same speed or bandwidth as cable internet or fiber internet you might have at home. There can be an occasional internet outages due to severe weather.</li>
+                <li style="text-align: left;">Multiple devices connected to wifi streaming will reduce speed and bandwidth.</li>
+                <li style="text-align: left;">We do not guarantee internet will support gaming devices such as Xbox, Nintendo Switch, or Sony Playstation.</li>
+            </ul>
+        
+            <!-- Second Header -->
+            <h2 style="text-align: center;">DISH NETWORK SATELLITE TV</h2>
+        
+            <!-- Second Bullet Points List -->
+            <ul">
+                <li style="text-align: left;">190 Channels</li>
+                <li style="text-align: left;">All – time favorites, including ESPN, CMT, Disney Channel, E!</li>
+                <li style="text-align: left;">Local Channels included</li>
+            </ul>
+        
+            <!-- Third Header -->
+            <h2 style="text-align: center;">LOCATION</h2>
+        
+            <!-- 40-word Paragraph -->
+            <p style="text-align: center;">Nestled within the breathtaking beauty of the Smoky Mountains, Red Bone Cabin awaits you on Red Bone Way. This idyllic location provides a tranquil escape, surrounded by nature's splendor and offering a perfect gateway to explore the wonders of this majestic region.</p>
+        </div>
+    </div>>
+
+    <!--Contact div-->
+    <div class="seventh-div">
+        <div class="seventh-child-div">
+            <div class="seventh-contact-container">
+                <h2 class="seventh-child-header">CONTACT US</h2>
+                <div class="contact-paragraph">
+                    <div class="phone-icon-container">
+                        <img src="img/contact-phone.png" alt="Phone Icon" class="phone-icon">
+                    </div>
+                    4xx-xxx-xxx8<br>
+                    <div class="email-icon-container">
+                        <img src="img/contact-email.png" alt="Email Icon" class="email-icon">
+                    </div>
+                    redbonecabin@gmail.com
+                </div>
+            </div>
+        </div>
+        <div class="seventh-child-div2">
+            Copyright, 2023 Red Bone Holding, LLC
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            // Redirect to the overview.html page
+            window.location.href = "overview.html";
+        }
+
+        function open_Airbnb1792() {
+            window.location.href = "https://www.airbnb.com/rooms/648012369244457772?source_impression_id=p3_1692667527_YpTY1HDGJEgC0ve%2B";
+        }
+    </script>
+
+</body>
+</html>
