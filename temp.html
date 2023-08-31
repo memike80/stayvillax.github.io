@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        /* Top div on main page */
+        .top-div {
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 18px;
+            font-weight: 300;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        /* Logo on the top left of the main page */
+        .Logo {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-decoration: none;
+            color: black;
+            font-family: 'Papyrus', Times, serif;
+        }
+        .Logo:hover {
+            color: #ef6c00;
+        }
+        /* Top div links */
+        .links {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            gap: 20px;
+        }
+        .link {
+            text-decoration: none;
+            color: black;
+            position: relative;
+        }
+        .link::before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ef6c00;
+            transition: width 0.3s;
+            transform-origin: left;
+        }
+        .link:hover::before {
+            width: 100%;
+        }
+
+        /* Add this to your existing CSS */
+        .properties-link {
+            position: relative; /* Required for absolute positioning */
+            display: inline-block; /* Expand horizontally based on content */
+            cursor: pointer;
+        }
+        .link.thingsToDo-link {
+            position: relative; /* Required for absolute positioning */
+            display: inline-block; /* Expand horizontally based on content */
+            cursor: pointer; /* Add this line */
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%; /* Match the width of the .properties-link */
+            background-color: white;
+            border: 1px solid #ddd;
+            display: none;
+            z-index: 1000; /* Ensure it's above the content */
+            font-size: 15px;
+        }
+
+        .link:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #ef6c00;
+            color: white;
+        }
+
+
+        /* Book button */
+        .book-now {
+            color: #dcb080;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 2px solid #dcb080;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Second div on main page */
+        .second-div {
+            height: calc(12 * 60px);
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .second-child-div { /* Child div for slideshow container */
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .slideshow-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            overflow: hidden;
+            position: relative;
+        }
+        .slide { /* Slide image input */
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .slogan-div { /* Second div slogan container */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 2;
+        }
+        .slogan { /* Second div slogan */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 45px;
+            color: white;
+            font-family: 'Times New Roman', sans-serif;
+            text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.4), 0px 8px 15px rgba(0, 0, 0, 0.3), 0px 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Third div on main page */
+        .third-div {
+            position: relative;
+            height: calc(12 * 60px);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .third-child-div { /* Div for title */
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0); 
+            height: 15%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            text-align: center;
+            color: rgb(8, 140, 177);
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .third-child-div2 { /* Div for paragraph */
+            position: absolute;
+            top: 55%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 70%; 
+            background-color: rgba(0, 0, 0, 0); 
+            color: rgb(135, 135, 135); 
+            padding: 20px;
+            font-size: 22px;
+            text-align: center;
+            font-family: 'Andalé Mono', sans-serif;
+            line-height: 1.3;
+            display: block;
+            z-index: 1; 
+        }
+
+
+        /* Fourth div on main page */
+        .fourth-div {
+            position: relative; 
+            height: calc(12 * 60px);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fourth-child-div { /* Div for title */
+            position: absolute;
+            top: 5%; 
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 100%;
+            background-color: white;
+            height: 90%; 
+            opacity: 0.7; 
+        }
+        .fourth-child-div2 {  /* Div container for content */
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0); 
+            height: 15%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            text-align: center;
+            color: rgb(8, 140, 177); /* Text color */
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .fourth-child-div3,
+        .fourth-child-div4 { /* Divided divs for left and right content */
+            position: absolute;
+            top: 20%; 
+            height: 70%; 
+            background-color: rgba(37, 177, 216, 0); 
+            display: flex-start;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-align: center;
+            color: rgb(66, 64, 64); 
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .fourth-child-div3 { /* Put div3 on the left */
+            left: 0; /* Place the third div on the left */
+            width: 50%; /* Half the width for left div */
+        }
+        .fourth-child-div4 { /* Put div4 on the right */
+            right: 0; /* Place the fourth div on the right */
+            width: 50%; /* Half the width for right div */
+        }
+        .fourth-child-header { /* Content header */
+            font-size: 24px;
+            text-align: center;
+            color: rgb(196, 170, 22);
+            margin: 0; 
+            padding-top: 5%; 
+        }
+        .fourth-child-div3 p { /* Div3 content paragraph */
+            max-height: 100%;
+            display: block;
+            width:30%;
+            word-wrap: break-word;
+            font-size: 1em;
+            color:rgb(135, 135, 135);
+            text-align: center; 
+            margin: 20px auto 0; 
+            
+        }
+        .fourth-child-div4 p { /* Div4 content paragraph */
+            display: block;
+            width: 30%;
+            word-wrap: break-word;
+            font-size: 1em;
+            color: rgb(135, 135, 135);
+            text-align: center; 
+            margin: 20px auto 0; 
+        }
+
+        /* Fifth div on the main page */
+        .fifth-div {
+            position: relative;
+            height: calc(12 * 60px);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fifth-child-div { /* Div for title */
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0); 
+            height: 15%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            text-align: center;
+            color: rgb(8, 140, 177);
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .fifth-child-div2 { /* Div for content header */
+            position: absolute; 
+            top: calc(5% + 15%); 
+            left: 0; 
+            width: 100%; 
+            height: 15%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+
+        .fifth-child-div2-1,
+        .fifth-child-div2-2,
+        .fifth-child-div2-3 { /* Left and right headers */
+            flex: 1;
+            display: flex;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);;
+            align-items: center; 
+            justify-content: center; 
+            color: rgb(196, 170, 22);
+            font-size: 1.5em;
+            font-family: 'Andalé Mono', sans-serif;
+        }
+
+        .fifth-child-div3 { /* Content container div */
+            position: absolute;
+            top: calc(5% + 15% + 15%); 
+            left: 0; 
+            width: 100%; 
+            height: 65%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        .fifth-child-div3-1,
+        .fifth-child-div3-2,
+        .fifth-child-div3-3 { /* Left and right container */
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);;
+            align-items: center; 
+            justify-content: center; 
+            color: rgb(196, 170, 22);
+            font-size: 1.5em;
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .fifth-child-div3-1-1,
+        .fifth-child-div3-1-2 { /* Left cabin content in column */
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0);;
+            color: rgb(0, 0, 0);
+            font-size: 1.5em;
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .fifth-child-div3-2-1, 
+        .fifth-child-div3-2-2 { /* Right cabin content in column */
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0);;
+            color: rgb(0, 0, 0);
+            font-size: 1.5em;
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .fifth-child-div3-3-1,
+        .fifth-child-div3-3-2 { /* Left cabin content in column */
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0);;
+            color: rgb(0, 0, 0);
+            font-size: 1.5em;
+            font-family: 'Andalé Mono', sans-serif;
+        }
+        .div3-1-1-image-container { /* Left content image container */
+            width: 4em; 
+            height: 4em; 
+            margin: 0 10px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+        }
+
+        .div3-1-1-image-container img { /* Left content image */
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+        }
+        .div3-2-1-image-container { /* Right content image container */
+            width: 4em; 
+            height: 4em; 
+            margin: 0 10px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+        }
+
+        .div3-2-1-image-container img { /* Right content image */
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        .div3-3-1-image-container img { /* Right content image */
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .div3-3-1-image-container { /* Right content image container */
+            width: 4em; 
+            height: 4em; 
+            margin: 0 10px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+        }
+
+        .div3-1-2-list,
+        .div3-2-2-list,
+        .div3-3-2-list  { /* Left and right list content */
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgb(135, 135, 135);
+        }
+
+        .list-row { /* Place list as row */
+            display: flex;
+        }
+
+        .list-item {
+            padding: 10px;
+            margin: 5px;
+            text-align: center;
+            background-color: #f0f0f0;
+            position: relative; 
+        }
+
+        .list-item::before { /* Put bullet points to each item of the list */
+            content: "\2022"; 
+            position: absolute;
+            left: -2px; 
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+
+
+
+
+
+        /* Sixth div on the main page */
+        .sixth-div {
+            height: calc(12 * 60px);
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Times New Roman', sans-serif;
+        }
+        .sixth-child-div { /* Div for slideshow container */
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .slideshow-container { /* Container */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            overflow: hidden;
+            position: relative;
+        }
+        .sixth-slogan-div { /* Slogan container */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 2;
+        }
+        .sixth-slogan { /* Slogan text */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 45px;
+            color: white;
+            font-family: 'Times New Roman', sans-serif;
+            text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.4), 0px 8px 15px rgba(0, 0, 0, 0.3), 0px 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Seventh div on the main page */
+        .seventh-div {
+            height: calc(5 * 60px);
+            background-color: rgb(0, 0, 0);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+            position: relative;
+        }
+        .seventh-child-div {
+            width: 40%;
+            height: 80%;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .seventh-contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+            padding: 20px; 
+            background-color: rgb(0, 0, 0);
+        }
+
+        .seventh-child-header {
+            font-size: 24px;
+            color: white;
+            margin: 0;
+        }
+
+        .contact-paragraph {
+            font-size: 18px;
+            color: white;
+            text-align: left;
+            margin: 10px 0 0; /* Adjust margin for spacing */
+        }
+        .phone-icon-container {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
+        .phone-icon {
+            height: 0.8em; /* Set the desired height for the icon */
+            width: auto;
+            vertical-align: middle;
+        }
+        .email-icon-container {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .email-icon {
+            height: 0.8em;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .seventh-child-div2 { /* Copyright content */
+            background-color: rgb(0, 0, 0); 
+            color: white; 
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        /* Pop-up window - temporary use */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .popup-message {
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }    
+        
+    </style>
+
+    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!--Top div-->
+    <div class="top-div"> 
+        <a class="Logo" href="index.html">
+            RED BONE CABINS
+        </a>
+        <div class="links">
+            <a class="link" href="index.html">HOME</a>
+            <div class="link properties-link">
+                <span class="link-text">PROPERTIES</span>
+                <div class="dropdown-menu">
+                    <a href="overview.html">OVERVIEW</a>
+                    <a href="1792.html">1792</a>
+                    <a href="1784.html">1784</a>
+                    <a href="THIRD.html">THIRD</a>
+                </div>
+            </div>
+            <div class="link thingsToDo-link">
+                <span class="link-text">THING TO DO</span>
+                <div class="dropdown-menu">
+                    <a href="things to do.html">ACTIVITIES</a>
+                    <a href="nearbyRes.html">FOOD</a>
+                </div>
+            </div>
+            <a class="link" href="about us.html">ABOUT US</a>
+            <span class="book-now" onclick="openPopup()">BOOK NOW</span>
+        </div>
+    </div>
+
+    <!--Second div-->
+    <div class="second-div">
+        <div class="second-child-div">
+            <div class="slideshow-container">
+                <div class="slogan-div">
+                    <div class="slogan">
+                        Green Refuge. <br>Civilized Comfort.
+                    </div>
+                </div>
+                <img class="slide" src="img/img1.jpg" alt="Image 1">
+                <img class="slide" src="img/img2.jpg" alt="Image 2">
+                <img class="slide" src="img/img3.jpg" alt="Image 3">
+            </div>
+        </div>
+    </div>
+
+    <!--Third div-->
+    <div class="third-div">
+        <div class="third-child-div">
+            WELCOME TO RED BONE WAYS
+        </div>
+        <div class="third-child-div2">
+            Red Bone Way comprises two cabins, skillfully fusing modern comfort with rustic charm amidst the awe-inspiring Smoky Mountains scenery. 
+            This unique escape offers a haven for tranquility seekers, striking a harmonious balance between seclusion and accessibility, all while being a stone's throw away from the vibrant ambiance of Pigeon Forge. Immerse yourself in the serene surroundings, as the Red Bone Way cabins promise an unforgettable getaway where relaxation meets the irresistible allure of the Smokies.
+        </div>
+    </div>
+
+    <!--Fourth div-->
+    <!--<div class="fourth-div">
+        <img src="img/img-fourth-div.jpg" alt="Fourth div image" style="width: 100%; height: 100%;  object-fit: cover;">
+        <div class="fourth-child-div">
+        </div>
+        <div class="fourth-child-div2">
+            WHY BOOK DIRECT?
+        </div>
+        <div class="fourth-child-div3">
+            <h2 class="fourth-child-header">Communication & Flexibility</h2>
+            <p>Choosing this avenue unveils excellent communication advantages. 
+                Direct interaction ensures customized stays, flexible dates, and a seamless, tailor-made escape experience in our cabins.
+            </p>
+        </div>
+        <div class="fourth-child-div4">
+            <h2 class="fourth-child-header">Saving & Budgeting</h2>
+            <p>Opt for direct booking and connect with us, your seasoned hosts! 
+                Enjoy the promise of unbeatable rates, with direct reservations ensuring savings of 10-15% compared to rates on marketing platforms.</p>
+        </div>
+    </div>-->
+
+    <!--Fifth div-->
+    <div class="fifth-div">
+        <div class="fifth-child-div">
+            PROPERTIES
+        </div>
+
+        <div class="fifth-child-div2">
+            <div class="fifth-child-div2-1">
+                1792 Red Bone Way
+            </div>
+            <div class="fifth-child-div2-2">
+                1785 Red Bone Way
+            </div>
+            <div class="fifth-child-div2-3">
+                Third Cabin
+            </div>
+        </div>
+        
+        <div class="fifth-child-div3">
+            <div class="fifth-child-div3-1">
+                <div class="fifth-child-div3-1-1">
+                    <div class="div3-1-1-image-container">
+                        <img src="img/fifth-child-div3-1-1-img1.jpg" alt="Image 1">
+                    </div>
+                </div>
+                
+                <div class="fifth-child-div3-1-2">
+                    <div class="div3-1-2-list">
+                        <div class="list-row">
+                            <div class="list-item">3 Bedrooms</div>
+                            <div class="list-item">3 Bathrooms</div>
+                        </div>
+                    </div>
+                    <div class="button-container3-1">
+                        <button class="book-now-button" onclick="navigateToOverview()">Learn more</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="fifth-child-div3-2">
+                <div class="fifth-child-div3-2-1">
+                    <div class="div3-2-1-image-container">
+                        <img src="img/fifth-child-div3-2-1-img1.jpg" alt="Image 1">
+                    </div>
+                </div>
+                <div class="fifth-child-div3-2-2">
+                    <div class="div3-2-2-list">
+                        <div class="list-row">
+                            <div class="list-item">3 Bedrooms</div>
+                            <div class="list-item">3 Bathrooms</div>
+                        </div>
+                    </div>
+                    <div class="button-container3-2">
+                        <button class="book-now-button" onclick="navigateToOverview()">Learn more</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fifth-child-div3-3">
+                <div class="fifth-child-div3-3-1">
+                    <div class="div3-3-1-image-container">
+                        <img src="img/fifth-child-div3-3-1-img1.jpg" alt="Image 1">
+                    </div>
+                </div>
+                <div class="fifth-child-div3-3-2">
+                    <div class="div3-3-2-list">
+                        <div class="list-row">
+                            <div class="list-item">3 Bedrooms</div>
+                            <div class="list-item">3 Bathrooms</div>
+                        </div>
+                    </div>
+                    <div class="button-container3-3">
+                        <button class="book-now-button" onclick="navigateToOverview()">Learn more</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Sixth div-->
+    <!--<div class="sixth-div">
+        <div class="sixth-child-div">
+            <div class="slideshow-container">
+                <div class="sixth-slogan-div">
+                    <div class="sixth-slogan">
+                        UNWIND. RECHARGE. EXPLORE
+                    </div>
+                </div>
+                <img class="slide" src="img/img4.jpg" alt="Image 4">
+                <img class="slide" src="img/img5.jpg" alt="Image 5">
+                <img class="slide" src="img/img6.jpg" alt="Image 6">
+            </div>
+        </div>
+    </div>-->
+
+    <!--Seventh div-->
+    <div class="seventh-div">
+        <div class="seventh-child-div">
+            <div class="seventh-contact-container">
+                <h2 class="seventh-child-header">CONTACT US</h2>
+                <div class="contact-paragraph">
+                    <div class="phone-icon-container">
+                        <img src="img/contact-phone.png" alt="Phone Icon" class="phone-icon">
+                    </div>
+                    4xx-xxx-xxx8<br>
+                    <div class="email-icon-container">
+                        <img src="img/contact-email.png" alt="Email Icon" class="email-icon">
+                    </div>
+                    redbonecabin@gmail.com
+                </div>
+            </div>
+        </div>
+        <div class="seventh-child-div2">
+            Copyright, 2023 Red Bone Holding, LLC
+        </div>
+    </div>
+
+    <!--Pop up window-->
+    <div class="popup-container" id="popup">
+        <span class="popup-close" onclick="closePopup()">&times;</span>
+        <div class="popup-message">
+            Developer is working on the functioning features,<br>
+            apologize for the inconveniences!
+        </div>
+    </div>
+
+
+    <script>
+        //For second div slideshow
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        const slides = slideshowContainer.querySelectorAll('.slide');
+        let slideIndex = 0;
+    
+        function showSlides() {
+            slides[slideIndex].style.transform = 'translateX(100%)';
+            slides[slideIndex].style.display = 'none';
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].style.transform = 'translateX(-100%)';
+            slides[slideIndex].style.display = 'block';
+            setTimeout(function() {
+                slides[slideIndex].style.transform = 'translateX(0)';
+            }, 10);
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+    
+        // For sixth div slideshow
+        const sixthSlideshowContainer = document.querySelector('.sixth-div .slideshow-container');
+        const sixthSlides = sixthSlideshowContainer.querySelectorAll('.slide');
+        let sixthSlideIndex = 0;
+
+        function showSixthSlides() {
+            sixthSlides[sixthSlideIndex].style.transform = 'translateX(100%)';
+            sixthSlides[sixthSlideIndex].style.display = 'none';
+            sixthSlideIndex = (sixthSlideIndex + 1) % sixthSlides.length;
+            sixthSlides[sixthSlideIndex].style.transform = 'translateX(-100%)';
+            sixthSlides[sixthSlideIndex].style.display = 'block';
+            setTimeout(function() {
+                sixthSlides[sixthSlideIndex].style.transform = 'translateX(0)';
+            }, 10);
+            setTimeout(showSixthSlides, 3000);
+        }
+
+        showSixthSlides();
+
+        
+
+
+        function openPopup() {
+            // Redirect to the overview.html page
+            window.location.href = "overview.html";
+        }
+
+        function navigateToOverview() {
+            window.location.href = "overview.html";
+        }
+
+    </script>
+</body>
+</html>
